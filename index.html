@@ -1,132 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Uneven Masonry Grid</title>
-  <style>
-    :root {
-      --bg-color: #f5f5f5;
-      --text-color: #333;
-      --card-bg: #fff;
-      --border-color: #e0e0e0;
-      --gap: 15px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uneven Masonry Grid</title>
+    <style>
+      :root {
+        --bg-color: #f5f5f5;
+        --text-color: #333;
+        --card-bg: #fff;
+        --border-color: #e0e0e0;
+        --gap: 15px;
+      }
 
-    body.dark-mode {
-      --bg-color: #1a1a1a;
-      --text-color: #f0f0f0;
-      --card-bg: #2d2d2d;
-      --border-color: #444;
-    }
+      body.dark-mode {
+        --bg-color: #1a1a1a;
+        --text-color: #f0f0f0;
+        --card-bg: #2d2d2d;
+        --border-color: #444;
+      }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      padding: 20px;
-      transition: all 0.4s ease;
-    }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        padding: 20px;
+        transition: all 0.4s ease;
+      }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border-color);
-    }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
 
-    h1 {
-      font-weight: 600;
-    }
+      h1 {
+        font-weight: 600;
+      }
 
-    .toggle-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+      .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 30px;
-    }
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+      }
 
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 34px;
-    }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 22px;
-      width: 22px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
 
-    input:checked + .slider {
-      background-color: #4CAF50;
-    }
+      input:checked + .slider {
+        background-color: #4caf50;
+      }
 
-    input:checked + .slider:before {
-      transform: translateX(30px);
-    }
+      input:checked + .slider:before {
+        transform: translateX(30px);
+      }
 
-    .masonry-grid {
-      columns: 4;
-      column-gap: var(--gap);
-    }
+      .masonry-grid {
+        columns: 4;
+        column-gap: var(--gap);
+      }
 
-    .masonry-item {
-      break-inside: avoid;
-      margin-bottom: var(--gap);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--card-bg);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateY(20px);
-    }
+      .masonry-item {
+        break-inside: avoid;
+        margin-bottom: var(--gap);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--card-bg);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+      }
 
-    .masonry-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      .masonry-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-    .masonry-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
+      .masonry-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-    .masonry-img {
+      .masonry-img {
         width: 100%;
         height: 100%;
         object-position: center;
@@ -134,115 +134,126 @@
         aspect-ratio: 1/1;
         display: block;
         transition: transform 0.3s ease;
-    }
-
-    .masonry-item:hover .masonry-img {
-      transform: scale(1.05);
-    }
-
-    /* Create uneven heights by assigning random spans */
-    .masonry-item.tall {
-      height: 380px;
-    }
-    .masonry-item.medium {
-      height: 280px;
-    }
-    .masonry-item.short {
-      height: 180px;
-    }
-
-    @media (max-width: 1200px) {
-      .masonry-grid {
-        columns: 3;
       }
-    }
 
-    @media (max-width: 768px) {
-      .masonry-grid {
-        columns: 2;
+      .masonry-item:hover .masonry-img {
+        transform: scale(1.05);
       }
-    }
 
-    @media (max-width: 480px) {
-      .masonry-grid {
-        columns: 1;
+      /* Create uneven heights by assigning random spans */
+      .masonry-item.tall {
+        height: 380px;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Uneven Masonry Grid</h1>
-    <div class="toggle-container">
-      <span>Dark Mode</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider"></span>
-      </label>
-    </div>
-  </header>
+      .masonry-item.medium {
+        height: 280px;
+      }
+      .masonry-item.short {
+        height: 180px;
+      }
 
-  <div class="masonry-grid" id="gallery"></div>
+      @media (max-width: 1200px) {
+        .masonry-grid {
+          columns: 3;
+        }
+      }
 
-  <script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('change', () => {
-      document.body.classList.toggle('dark-mode', themeToggle.checked);
-      localStorage.setItem('darkMode', themeToggle.checked);
-    });
+      @media (max-width: 768px) {
+        .masonry-grid {
+          columns: 2;
+        }
+      }
 
-    // Check for saved theme preference
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-      themeToggle.checked = true;
-    }
+      @media (max-width: 480px) {
+        .masonry-grid {
+          columns: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Uneven Masonry Grid</h1>
+      <div class="toggle-container">
+        <span>Dark Mode</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </header>
 
-    // Real working image URLs with different aspect ratios
-    const imageUrls = [
-      "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://plus.unsplash.com/premium_photo-1711434824963-ca894373272e?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",  
-      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "https://images.unsplash.com/photo-1491864483946-1f06be97b71d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    <div class="masonry-grid" id="gallery"></div>
+
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode", themeToggle.checked);
+        localStorage.setItem("darkMode", themeToggle.checked);
+      });
+
+      // Check for saved theme preference
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+        themeToggle.checked = true;
+      }
+
+      // Real working image URLs with different aspect ratios
+      const imageUrls = [
+        "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://plus.unsplash.com/premium_photo-1711434824963-ca894373272e?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1491864483946-1f06be97b71d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://plus.unsplash.com/premium_photo-1666666222364-7479e7347833?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    ];
+        "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://plus.unsplash.com/premium_photo-1673697239984-b089baf7b6e6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1505820013142-f86a3439c5b2?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1615729947596-a598e5de0ab3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://plus.unsplash.com/premium_photo-1673603988651-99f79e4ae7d3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      ];
 
-    // Generate gallery items with uneven heights
-    const gallery = document.getElementById('gallery');
-    
-    imageUrls.forEach((url, index) => {
-      const galleryItem = document.createElement('div');
-      
-      // Assign random height classes
-      const heightClasses = ['tall', 'medium', 'short'];
-      const randomHeight = heightClasses[Math.floor(Math.random() * heightClasses.length)];
-      
-      galleryItem.className = `masonry-item ${randomHeight}`;
-      galleryItem.innerHTML = `
+      // Generate gallery items with uneven heights
+      const gallery = document.getElementById("gallery");
+
+      imageUrls.forEach((url, index) => {
+        const galleryItem = document.createElement("div");
+
+        // Assign random height classes
+        const heightClasses = ["tall", "medium", "short"];
+        const randomHeight =
+          heightClasses[Math.floor(Math.random() * heightClasses.length)];
+
+        galleryItem.className = `masonry-item ${randomHeight}`;
+        galleryItem.innerHTML = `
         <img src="${url}" alt="Gallery image ${index + 1}" class="masonry-img">
       `;
-      gallery.appendChild(galleryItem);
-      
-      // Add animation with staggered delay
-      setTimeout(() => {
-        galleryItem.classList.add('visible');
-      }, 100 * index);
-    });
+        gallery.appendChild(galleryItem);
 
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        // Add animation with staggered delay
+        setTimeout(() => {
+          galleryItem.classList.add("visible");
+        }, 100 * index);
       });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.masonry-item').forEach(item => {
-      observer.observe(item);
-    });
-  </script>
-</body>
+      // Intersection Observer for scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".masonry-item").forEach((item) => {
+        observer.observe(item);
+      });
+    </script>
+  </body>
 </html>
